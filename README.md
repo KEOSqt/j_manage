@@ -43,15 +43,15 @@ Each worker entry includes:
 
 ## Project Structure
 
-- `/home/runner/work/j_manage/j_manage/index.html` – page layout and UI elements
-- `/home/runner/work/j_manage/j_manage/style.css` – styling, responsive behavior, and visual theme
-- `/home/runner/work/j_manage/j_manage/script.js` – state management, rendering, filtering, sorting, pagination, CSV import/export, and localStorage integration
+- `index.html` – page layout and UI elements
+- `style.css` – styling, responsive behavior, and visual theme
+- `script.js` – state management, rendering, filtering, sorting, pagination, CSV import/export, and localStorage integration
 
 ## How to Run
 
 No build step is required.
 
-1. Open `/home/runner/work/j_manage/j_manage/index.html` in a modern browser.
+1. Open `index.html` in a modern browser.
 2. Start adding or importing workers.
 3. Data is persisted locally in the browser under the key `wm_workers_v1`.
 
