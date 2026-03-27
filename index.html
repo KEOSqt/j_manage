@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Worker Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">👷 Worker Manager</div>
+    <div class="actions">
+      <button id="btnAdd" class="btn primary">➕ Add Worker</button>
+      <button id="btnExport" class="btn">⬇️ Export CSV</button>
+      <label class="btn file">
+        ⬆️ Import CSV
+        <input id="fileImport" type="file" accept=".csv" hidden />
+      </label>
+      <button id="btnPrint" class="btn">🖨️ Print</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- KPI Cards -->
+    <section class="kpis">
+      <div class="kpi">
+        <div class="kpi-label">Total Workers</div>
+        <div id="kpiTotal" class="kpi-value">0</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Active</div>
+        <div id="kpiActive" class="kpi-value green">0</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">On Leave</div>
+        <div id="kpiLeave" class="kpi-value amber">0</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Daily Cost</div>
+        <div id="kpiDailyCost" class="kpi-value">0</div>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="toolbar">
+      <input id="search" class="input" type="search" placeholder="Search by name, phone, ID…" />
+      <select id="filterJob" class="input">
+        <option value="">All Job Types</option>
+        <option>Electrician</option>
+        <option>Plumber</option>
+        <option>Painter</option>
+        <option>Constructor</option>
+        <option>Other</option>
+      </select>
+      <select id="filterStatus" class="input">
+        <option value="">All Status</option>
+        <option>Active</option>
+        <option>On Leave</option>
+        <option>Inactive</option>
+      </select>
+      <select id="rowsPerPage" class="input">
+        <option value="10">10 / page</option>
+        <option value="25">25 / page</option>
+        <option value="50">50 / page</option>
+        <option value="100">100 / page</option>
+      </select>
+    </section>
+
+    <!-- Table -->
+    <section class="card">
+      <div class="table-wrap">
+        <table id="tbl" class="table">
+          <thead>
+            <tr>
+              <th data-sort="name">Name</th>
+              <th class="hide-sm" data-sort="phone">Phone</th>
+              <th data-sort="jobType">Job Type</th>
+              <th class="hide-sm" data-sort="dailyWage">Daily Wage</th>
+              <th class="hide-md" data-sort="nationalId">National ID</th>
+              <th data-sort="status">Status</th>
+              <th class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <button id="prevPage" class="btn">◀</button>
+        <span id="pageInfo"></span>
+        <button id="nextPage" class="btn">▶</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <dialog id="modal">
+    <form id="frm" method="dialog" class="modal">
+      <header class="modal-header">
+        <h3 id="modalTitle">Add Worker</h3>
+        <button type="button" class="icon-btn" id="closeModal">✖</button>
+      </header>
+
+      <div class="grid">
+        <div class="field">
+          <label>Full Name *</label>
+          <input name="name" class="input" required />
+        </div>
+        <div class="field">
+          <label>Phone *</label>
+          <input name="phone" class="input" required />
+        </div>
+        <div class="field">
+          <label>National ID</label>
+          <input name="nationalId" class="input" />
+        </div>
+        <div class="field">
+          <label>Job Type *</label>
+          <select name="jobType" class="input" required>
+            <option value="">Select…</option>
+            <option>Constructor</option>
+            <option>Electrician</option>
+            <option>Plumber</option>
+            <option>Painter</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Daily Wage (TND) *</label>
+          <input name="dailyWage" class="input" type="number" step="0.01" min="0" required />
+        </div>
+        <div class="field">
+          <label>Status *</label>
+          <select name="status" class="input" required>
+            <option>Active</option>
+            <option>On Leave</option>
+            <option>Inactive</option>
+          </select>
+        </div>
+        <div class="field col-2">
+          <label>Address</label>
+          <input name="address" class="input" />
+        </div>
+        <div class="field col-2">
+          <label>Notes</label>
+          <textarea name="notes" class="input" rows="2"></textarea>
+        </div>
+      </div>
+
+      <footer class="modal-actions">
+        <button class="btn" value="cancel" type="button" id="btnCancel">Cancel</button>
+        <button class="btn primary" id="btnSave" type="submit">Save</button>
+      </footer>
+
+      <input type="hidden" name="id" />
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
